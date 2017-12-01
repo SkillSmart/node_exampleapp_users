@@ -62,15 +62,15 @@ describe('Update Record', function () {
             });
     });
 
-    xit('Can increment post count on User by 1', function (done) {
+    it('Can increment likes on User by 1', function (done) {
         User.update({}, {
             $inc: {
-                postCount: 1
+                likes: 1
             }
         })
             .then(() => User.findById(user.id))
             .then((user) => {
-                assert(user.postCount === 1);
+                assert(user.likes === 1);
                 done();
             })
     });

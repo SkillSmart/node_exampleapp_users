@@ -16,10 +16,9 @@ describe('Read Entry from Database', () => {
     });
 
     it('finds all users by firstName', function (done) {
-        User.find({ firstName: 'Frank' })
-        .then((users) => {
-            console.log(users);
-            assert(users[0].id.toString() === user.id.toString());
+        User.findOne({ firstName: 'Frank' })
+        .then((user) => {
+            assert(user._id.toString() === user._id.toString());
             done();
         })
     });
