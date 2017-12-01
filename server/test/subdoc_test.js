@@ -41,7 +41,24 @@ describe('Manage Subdocuments on a Model', function () {
                         done();
                     })
             })
-
-        
     });
+
+    it('can remove an existing subdocument', function () {
+        // Add a subdocument to the user
+        user.posts.push({title: 'First testpost'});
+        user.save()
+            .then(() => User.findById(user.id))
+            .then((user) => {
+                user.posts[0].remove();
+                return user.save();
+            })
+            .then((user) => {
+                assert(user.posts[0] === null);
+                done();
+            })
+        
+        
+        
+    })
+
 })
