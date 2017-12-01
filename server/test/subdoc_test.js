@@ -56,9 +56,6 @@ describe('Manage Subdocuments on a Model', function () {
                 assert(user.posts[0] === null);
                 done();
             })
-        
-        
-        
     })
 
 })

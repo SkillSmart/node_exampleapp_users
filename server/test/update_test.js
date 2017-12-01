@@ -62,7 +62,7 @@ describe('Update Record', function () {
             });
     });
 
-    it('Can increment post count on User by 1', function (done) {
+    xit('Can increment post count on User by 1', function (done) {
         User.update({}, {
             $inc: {
                 postCount: 1
