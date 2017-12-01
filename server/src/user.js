@@ -40,5 +40,16 @@ UserSchema.virtual('blogPostCount').get(function () {
     return this.blogPosts.length;
 });
 
+// MIDDLEWARE: Set either .pre  or .post on a given Event type
+UserSchema.pre('remove', function (next) {
+    // To prevent circulare requires in the files, we require
+    // exising models directly in this function scope
+    const BlogPost = mongoose.model('blogPost');
+
+    // Apply cleanup 
+    BlogPost.remove({ id: { $in: this.blogPosts } })
+        .then(() => next());
+});
+
 module.exports = mongoose.model('user', UserSchema);
 

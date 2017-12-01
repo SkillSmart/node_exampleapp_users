@@ -12,5 +12,13 @@ const CommentSchema = new Schema({
 
 // define virtual types
 
+// define .pre and .post Middleware hooks
+CommentSchema.pre('remove', function(next) {
+    const Comment = mongoose.model('comment');
+
+    Comment.remove({ id: { $in: this.comments}})
+        .then(() => next());
+});
+
 // export the Model
 module.exports = mongoose.model('comment', CommentSchema );
