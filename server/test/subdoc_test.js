@@ -30,15 +30,18 @@ describe('Manage Subdocuments on a Model', function () {
             title: "My first post"
         };
         User.findById(user.id)
-        .then((user) => {
-            user.posts.push(post);
-            user.save();
-        })
-        .then(() => User.findById(user.id))
-        .then((user) => {
-            assert(user.posts[0].title === 'Post Title')
-            done();
-        });
+            .then((user) => {
+                user.posts.push(post);
+                // Need to return form function to return the 
+                // promise, to be able to chain on other commands
+                return user.save()
+                    .then(() => User.findById(user.id))
+                    .then((user) => {
+                        assert(user.posts[1].title === 'My first post');
+                        done();
+                    })
+            })
+
         
     });
 })
