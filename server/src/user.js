@@ -17,10 +17,12 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Last Name is required.']
     },
+    // Definition of a subcollection
     posts: {
         type: [PostSchema],
         default: [],
     },
+    // Def: Association to Model
     blogPosts: [{
         type: Schema.Types.ObjectId,
         ref: 'blogPost'

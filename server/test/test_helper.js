@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Set up a test connection to the Database
 mongoose.Promise = global.Promise;
@@ -9,18 +9,19 @@ mongoose.connection
 
 // Define Hooks to execute Maintainance code for the TestSuite
 
-// // Will run before each test
-// beforeEach((done) => {
-//     mongoose.connection.collections.users.drop(() => {
-//         // Ready to tun the next test!
-//         done();
-//     });
-// });
-
-beforeEach(function (done) {
-    mongoose.connection.collections.users.drop(() => {
-        done();
-    })
+// Before we run each test, we want to clean out all created collections, 
+// so we can start with a clean database
+beforeEach( (done) => {
+    const { users, comments, blogposts} = mongoose.connection.collections;
+    // We can not drop multiple collections at once, so we have to sequentially
+    // drop them one collection at a time
+    users.drop(() => {
+        comments.drop(() => {
+            blogposts.drop(() => {
+                done();
+            });
+        });
+    });
 });
 
 
