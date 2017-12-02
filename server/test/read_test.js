@@ -38,6 +38,7 @@ describe('Read Entry from Database', () => {
 
     it('can skip and limit the result set', function (done) {
         User.find()
+        // Dei
         .sort({firstName: 1})
         .skip(1)
         .limit(2)
